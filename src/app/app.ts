@@ -1,9 +1,14 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+// Importa RouterOutlet y RouterLink
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true, // Asegúrate que sea true
+  imports: [
+    RouterOutlet, // Añade RouterOutlet aquí
+    RouterLink    // Añade RouterLink aquí
+    ], 
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

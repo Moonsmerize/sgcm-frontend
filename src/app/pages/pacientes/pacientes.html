@@ -1,49 +1,73 @@
 <h2>Formularios para Pacientes</h2>
 
-<form (ngSubmit)="darDeAlta()">
+<form>
     <h3>Dar de Alta Paciente</h3>
     <div>
         <label for="nombres_alta">Nombre(s):</label><br>
-        <input type="text" id="nombres_alta" name="nombres_alta" placeholder="Escriba el nombre o nombres"
-               [(ngModel)]="nuevoPaciente.nombres" required>
+        <input type="text" id="nombres_alta" name="nombres_alta" placeholder="Escriba el nombre o nombres" required>
     </div>
     <br>
     <div>
         <label for="apellido_paterno_alta">Apellido Paterno:</label><br>
-        <input type="text" id="apellido_paterno_alta" name="apellido_paterno_alta" placeholder="Escriba el apellido paterno"
-               [(ngModel)]="nuevoPaciente.apellido_paterno" required>
+        <input type="text" id="apellido_paterno_alta" name="apellido_paterno_alta" placeholder="Escriba el apellido paterno" required>
     </div>
     <br>
     <div>
         <label for="apellido_materno_alta">Apellido Materno:</label><br>
-        <input type="text" id="apellido_materno_alta" name="apellido_materno_alta" placeholder="Escriba el apellido materno"
-               [(ngModel)]="nuevoPaciente.apellido_materno">
+        <input type="text" id="apellido_materno_alta" name="apellido_materno_alta" placeholder="Escriba el apellido materno">
     </div>
     <br>
     <div>
-        <button type="submit">Dar de Alta</button>
+        <button type="button">Dar de Alta</button>
     </div>
 </form>
 
-<hr> <h2>Pacientes Registrados</h2>
-<div *ngIf="listaPacientes.length === 0">
-    No hay pacientes registrados.
-</div>
-<table *ngIf="listaPacientes.length > 0">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre(s)</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let paciente of listaPacientes">
-            <td>{{ paciente.id }}</td>
-            <td>{{ paciente.nombres }}</td>
-            <td>{{ paciente.apellido_paterno }}</td>
-            <td>{{ paciente.apellido_materno || '' }}</td>
-            </tr>
-    </tbody>
-</table>
+<hr>
+
+<form>
+    <h2>Modificar Información del Paciente</h2>
+
+    <div>
+        <label for="idCliente_modificar">ID Cliente:</label><br>
+        <input type="text" id="idCliente_modificar" name="idCliente_modificar" placeholder="Escribe el id del paciente a modificar" required>
+    </div>
+    <br>
+    <div>
+        <label for="nombres_mod">Nombre(s):</label><br>
+        <input type="text" id="nombres_mod" name="nombres_mod" placeholder="Escribe los nombres para modificar" required>
+    </div>
+    <br>
+    <div>
+        <label for="apellido_paterno_mod">Apellido Paterno:</label><br>
+        <input type="text" id="apellido_paterno_mod" name="apellido_paterno_mod" placeholder="Escribe el apellido paterno a modificar" required>
+    </div>
+    <br>
+    <div>
+        <label for="apellido_materno_mod">Apellido Materno:</label><br>
+        <input type="text" id="apellido_materno_mod" name="apellido_materno_mod" placeholder="Escribe el apellido materno a modificar">
+    </div>
+    <br>
+    <div>
+        <button type="button">Guardar Cambios</button>
+         <button type="button" style="margin-left: 10px;">Cancelar</button>
+    </div>
+</form>
+
+<hr>
+
+<form>
+    <h2>Eliminar paciente por ID</h2>
+    <p class="texto-advertencia">
+        Para eliminar un registro, ingresa el ID del paciente.
+        <strong>Esta acción es irreversible.</strong>
+    </p>
+
+    <div>
+        <label for="id_eliminar">ID Cliente:</label><br>
+        <input type="text" id="id_eliminar" name="id_eliminar" placeholder="Escribe el ID del paciente a eliminar" required> 
+    </div>
+    <br>
+    <div>
+        <button type="button" class="btn-eliminar">Eliminar Paciente</button>
+    </div>
+</form>
