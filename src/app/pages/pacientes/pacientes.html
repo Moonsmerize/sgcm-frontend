@@ -1,1 +1,49 @@
-<p>pacientes works!</p>
+<h2>Formularios para Pacientes</h2>
+
+<form (ngSubmit)="darDeAlta()">
+    <h3>Dar de Alta Paciente</h3>
+    <div>
+        <label for="nombres_alta">Nombre(s):</label><br>
+        <input type="text" id="nombres_alta" name="nombres_alta" placeholder="Escriba el nombre o nombres"
+               [(ngModel)]="nuevoPaciente.nombres" required>
+    </div>
+    <br>
+    <div>
+        <label for="apellido_paterno_alta">Apellido Paterno:</label><br>
+        <input type="text" id="apellido_paterno_alta" name="apellido_paterno_alta" placeholder="Escriba el apellido paterno"
+               [(ngModel)]="nuevoPaciente.apellido_paterno" required>
+    </div>
+    <br>
+    <div>
+        <label for="apellido_materno_alta">Apellido Materno:</label><br>
+        <input type="text" id="apellido_materno_alta" name="apellido_materno_alta" placeholder="Escriba el apellido materno"
+               [(ngModel)]="nuevoPaciente.apellido_materno">
+    </div>
+    <br>
+    <div>
+        <button type="submit">Dar de Alta</button>
+    </div>
+</form>
+
+<hr> <h2>Pacientes Registrados</h2>
+<div *ngIf="listaPacientes.length === 0">
+    No hay pacientes registrados.
+</div>
+<table *ngIf="listaPacientes.length > 0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre(s)</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let paciente of listaPacientes">
+            <td>{{ paciente.id }}</td>
+            <td>{{ paciente.nombres }}</td>
+            <td>{{ paciente.apellido_paterno }}</td>
+            <td>{{ paciente.apellido_materno || '' }}</td>
+            </tr>
+    </tbody>
+</table>

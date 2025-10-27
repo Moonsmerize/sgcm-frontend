@@ -1,1 +1,61 @@
-<p>medicos works!</p>
+<h2>Formularios para Médicos</h2>
+
+<form (ngSubmit)="darDeAltaMedico()">
+    <h3>Dar de Alta Médico</h3>
+    <div>
+        <label for="nombres_medico_alta">Nombre(s):</label><br>
+        <input type="text" id="nombres_medico_alta" name="nombres_medico_alta" placeholder="Escriba el nombre o nombres"
+               [(ngModel)]="nuevoMedico.nombres" required>
+    </div>
+    <br>
+    <div>
+        <label for="apellido_paterno_medico_alta">Apellido Paterno:</label><br>
+        <input type="text" id="apellido_paterno_medico_alta" name="apellido_paterno_medico_alta" placeholder="Escriba el apellido paterno"
+               [(ngModel)]="nuevoMedico.apellido_paterno" required>
+    </div>
+    <br>
+    <div>
+        <label for="apellido_materno_medico_alta">Apellido Materno:</label><br>
+        <input type="text" id="apellido_materno_medico_alta" name="apellido_materno_medico_alta" placeholder="Escriba el apellido materno"
+               [(ngModel)]="nuevoMedico.apellido_materno">
+    </div>
+    <br>
+    <div>
+        <label for="cedula_alta">Cédula Profesional:</label><br>
+        <input type="text" id="cedula_alta" name="cedula_alta" placeholder="Escriba la cédula profesional"
+               [(ngModel)]="nuevoMedico.cedula" required>
+    </div>
+    <br>
+    <div>
+        <button type="submit">Dar de Alta (Simulado)</button> </div>
+</form>
+
+<hr>
+
+<h2>Médicos Registrados</h2>
+<div *ngIf="listaMedicos.length === 0">
+    No hay médicos registrados.
+</div>
+<table *ngIf="listaMedicos.length > 0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre(s)</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Cédula Profesional</th>
+            <th>Acciones</th> </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let medico of listaMedicos">
+            <td>{{ medico.id }}</td>
+            <td>{{ medico.nombres }}</td>
+            <td>{{ medico.apellido_paterno }}</td>
+            <td>{{ medico.apellido_materno || '' }}</td>
+            <td>{{ medico.cedula }}</td>
+            <td>
+                <button (click)="eliminarMedico(medico.id)">Eliminar (Simulado)</button>
+                 </td> 
+        </tr>
+    </tbody>
+</table>
