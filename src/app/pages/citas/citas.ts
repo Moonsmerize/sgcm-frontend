@@ -1,60 +1,62 @@
 import { Component, OnInit } from '@angular/core';
-// Importa CommonModule (para *ngIf, *ngFor, pipe date) y FormsModule (para ngModel)
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
-// NO importamos HttpClient
 
-// Interfaces para Cita
 interface Cita {
   id: number;
-  fecha: string; // Guardaremos la fecha como string (formato ISO 'yyyy-MM-ddTHH:mm')
+  fecha: string; 
   id_paciente: number;
   id_medico: number;
 }
 
-// Para el formulario de nueva cita, no necesitamos el 'id'
 interface CrearCita {
-  fecha: string | null; // Puede ser null inicialmente
-  id_paciente: number | null; // Puede ser null inicialmente
-  id_medico: number | null; // Puede ser null inicialmente
+  fecha: string | null; 
+  id_paciente: number | null; 
+  id_medico: number | null; 
 }
 
 @Component({
   selector: 'app-citas',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Asegura que estén aquí
+  imports: [CommonModule, FormsModule], 
   templateUrl: './citas.html',
-  // styleUrls: ['./citas.component.css'] // Comenta o elimina si no hay estilos
 })
 export class CitasComponent implements OnInit {
 
-  // Array local para simular las citas guardadas
   public listaCitas: Cita[] = [];
-  private proximoIdCita = 1; // Para simular IDs autoincrementales
+  private proximoIdCita = 1; 
 
-  // Objeto vinculado al formulario de agendar cita
   public nuevaCita: CrearCita = {
     fecha: null,
     id_paciente: null,
     id_medico: null
   };
 
+  public citaModificar: Cita = {
+    id: 0,
+    fecha: '',
+    id_paciente: 0,
+    id_medico: 0
+  };
+  public idParaCancelar: number | null = null;
+
+  public enviado = false;
+  public enviadoModificar = false;
+  public enviadoCancelar = false;
+
   constructor() { }
 
   ngOnInit(): void {
-    // Puedes cargar citas de ejemplo si quieres al iniciar
     this.cargarCitasSimulado();
   }
 
-  // --- Métodos Simulados ---
-
   cargarCitasSimulado(): void {
     console.log('Cargando citas (simulado):', this.listaCitas);
-    // En real, aquí iría la llamada GET a /api/citas
   }
 
   agendarCita(): void {
-    // Validación simple (en una app real sería más robusta)
+    this.enviado = true;
+
     if (!this.nuevaCita.fecha || this.nuevaCita.id_paciente === null || this.nuevaCita.id_medico === null) {
       alert('Por favor, completa todos los campos para agendar la cita.');
       return;
@@ -62,26 +64,56 @@ export class CitasComponent implements OnInit {
 
     console.log('Intentando agendar cita (simulado):', this.nuevaCita);
 
-    // Creamos el objeto Cita completo con un ID simulado
     const citaCreada: Cita = {
       id: this.proximoIdCita++,
-      // Aseguramos que los valores no sean null (aunque el 'required' del HTML ayuda)
       fecha: this.nuevaCita.fecha!, 
       id_paciente: this.nuevaCita.id_paciente!,
       id_medico: this.nuevaCita.id_medico! 
     };
 
-    // Añadimos la cita a nuestro array local
     this.listaCitas.push(citaCreada);
-    // Opcional: Ordenar la lista por fecha
     this.listaCitas.sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 
 
     console.log('Cita agendada (simulado):', citaCreada);
     alert(`Cita agendada con ID simulado: ${citaCreada.id}`);
 
-    // Limpiamos el formulario
     this.nuevaCita = { fecha: null, id_paciente: null, id_medico: null };
+    this.enviado = false;
+  }
+
+  guardarCambiosCita(): void {
+    this.enviadoModificar = true;
+    if (!this.citaModificar.id || !this.citaModificar.fecha || !this.citaModificar.id_paciente || !this.citaModificar.id_medico) {
+      alert('Por favor, complete todos los campos para modificar la cita.');
+      return;
+    }
+
+    // Lógica de guardado (simulada)
+    console.log('Intentando guardar cambios (simulado):', this.citaModificar);
+    alert(`Simulación: Cambios para la cita ID ${this.citaModificar.id} se guardarían.`);
+    this.cancelarModificacionCita();
+  }
+
+  cancelarModificacionCita(): void {
+    this.citaModificar = { id: 0, fecha: '', id_paciente: 0, id_medico: 0 };
+    this.enviadoModificar = false;
+  }
+
+  confirmarCancelacionCita(): void {
+    this.enviadoCancelar = true;
+    if (!this.idParaCancelar) {
+      alert('Por favor, ingrese el ID de la cita a cancelar.');
+      return;
+    }
+
+    if (confirm(`¿Está seguro de que desea cancelar la cita con ID ${this.idParaCancelar}? (Simulado)`)) {
+      // Lógica de eliminación (simulada)
+      console.log(`Simulación: Cita con ID ${this.idParaCancelar} cancelada.`);
+      alert(`Simulación: Cita con ID ${this.idParaCancelar} cancelada.`);
+      this.idParaCancelar = null;
+      this.enviadoCancelar = false;
+    }
   }
 
   eliminarCita(id: number): void {

@@ -1,61 +1,61 @@
 <h2>Formularios para Citas</h2>
 
-<form>
+<form #formAgendar="ngForm">
     <h3>Agendar Nueva Cita Médica</h3>
     <div>
         <label for="fecha_cita_nueva">Fecha y Hora:</label>
-        <input type="datetime-local" id="fecha_cita_nueva" name="fecha_cita_nueva" required>
+        <input type="datetime-local" id="fecha_cita_nueva" name="fecha_cita_nueva" [(ngModel)]="nuevaCita.fecha" required [ngClass]="{'campo-invalido': !nuevaCita.fecha && enviado}">
     </div>
     <br>
     <div>
         <label for="id_paciente_cita_nueva">ID del Paciente:</label>
-        <input type="number" id="id_paciente_cita_nueva" name="id_paciente_cita_nueva" placeholder="Ej: 115" required>
+        <input type="number" id="id_paciente_cita_nueva" name="id_paciente_cita_nueva" placeholder="Ej: 115" [(ngModel)]="nuevaCita.id_paciente" required [ngClass]="{'campo-invalido': !nuevaCita.id_paciente && enviado}">
     </div>
     <br>
     <div>
         <label for="id_medico_cita_nueva">ID del Médico:</label>
-        <input type="number" id="id_medico_cita_nueva" name="id_medico_cita_nueva" placeholder="Ej: 48" required>
+        <input type="number" id="id_medico_cita_nueva" name="id_medico_cita_nueva" placeholder="Ej: 48" [(ngModel)]="nuevaCita.id_medico" required [ngClass]="{'campo-invalido': !nuevaCita.id_medico && enviado}">
     </div>
     <br>
     <div>
-        <button type="button">Agendar Cita</button>
+        <button type="button" (click)="agendarCita()">Agendar Cita</button>
     </div>
 </form>
 
 <hr>
 
-<form>
+<form #formModificar="ngForm">
     <h2>Modificar Cita Médica</h2>
 
     <div>
         <label for="id_cita_mod">ID de la cita:</label>
-        <input type="number" id="id_cita_mod" name="id_cita_mod" placeholder="Ej: 901" required>
+        <input type="number" id="id_cita_mod" name="id_cita_mod" placeholder="Ej: 901" [(ngModel)]="citaModificar.id" required [ngClass]="{'campo-invalido': !citaModificar.id && enviadoModificar}">
     </div>
     <br>
     <div>
         <label for="fecha_mod">Fecha y Hora:</label>
-        <input type="datetime-local" id="fecha_mod" name="fecha_mod" placeholder="YYYY-MM-DDTHH:MM" required>
+        <input type="datetime-local" id="fecha_mod" name="fecha_mod" [(ngModel)]="citaModificar.fecha" required [ngClass]="{'campo-invalido': !citaModificar.fecha && enviadoModificar}">
     </div>
     <br>
     <div>
         <label for="id_paciente_mod">ID del Paciente:</label>
-        <input type="number" id="id_paciente_mod" name="id_paciente_mod" placeholder="Ej: 115" required>
+        <input type="number" id="id_paciente_mod" name="id_paciente_mod" placeholder="Ej: 115" [(ngModel)]="citaModificar.id_paciente" required [ngClass]="{'campo-invalido': !citaModificar.id_paciente && enviadoModificar}">
     </div>
     <br>
     <div>
         <label for="id_medico_mod">ID del Médico:</label>
-        <input type="number" id="id_medico_mod" name="id_medico_mod" placeholder="Ej: 48" required>
+        <input type="number" id="id_medico_mod" name="id_medico_mod" placeholder="Ej: 48" [(ngModel)]="citaModificar.id_medico" required [ngClass]="{'campo-invalido': !citaModificar.id_medico && enviadoModificar}">
     </div>
     <br>
     <div>
-        <button type="button">Guardar Cambios</button>
-        <button type="button" style="margin-left: 10px;">Cancelar</button>
+        <button type="button" (click)="guardarCambiosCita()">Guardar Cambios</button>
+        <button type="button" (click)="cancelarModificacionCita()" style="margin-left: 10px;">Cancelar</button>
     </div>
 </form>
 
 <hr>
 
-<form>
+<form #formCancelar="ngForm">
     <h2>Cancelar Cita por ID</h2>
     <p style="text-align: center; color: #6c757d; margin-bottom: 25px;">
         Introduce el ID único de la cita que deseas cancelar.
@@ -64,10 +64,10 @@
 
     <div>
         <label for="id_cita_cancelar">ID de la Cita:</label>
-        <input type="number" id="id_cita_cancelar" name="id_cita_cancelar" placeholder="Ej: 901" required>
+        <input type="number" id="id_cita_cancelar" name="id_cita_cancelar" placeholder="Ej: 901" [(ngModel)]="idParaCancelar" required [ngClass]="{'campo-invalido': !idParaCancelar && enviadoCancelar}">
     </div>
     <br>
     <div>
-        <button type="button" class="btn-eliminar">Sí, Cancelar Cita</button>
+        <button type="button" class="btn-eliminar" (click)="confirmarCancelacionCita()">Sí, Cancelar Cita</button>
     </div>
 </form>

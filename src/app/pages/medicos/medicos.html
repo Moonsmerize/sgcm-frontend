@@ -1,64 +1,69 @@
 <h2>Formularios para Médicos</h2>
 
-<form>
+<form #formAlta="ngForm">
     <h3>Dar de Alta Médico</h3>
     <div>
         <label for="nombres_alta">Nombre(s):</label><br>
-        <input type="text" id="nombres_alta" name="nombres_alta" placeholder="Escriba el nombre o nombres" required>
+        <input type="text" id="nombres_alta" name="nombres_alta" placeholder="Escriba el nombre o nombres" [(ngModel)]="nuevoMedico.nombres" required [ngClass]="{'campo-invalido': !nuevoMedico.nombres && enviadoAlta}">
     </div>
     <br>
     <div>
         <label for="apellido_paterno_alta">Apellido Paterno:</label><br>
-        <input type="text" id="apellido_paterno_alta" name="apellido_paterno_alta" placeholder="Escriba el apellido paterno" required>
+        <input type="text" id="apellido_paterno_alta" name="apellido_paterno_alta" placeholder="Escriba el apellido paterno" [(ngModel)]="nuevoMedico.apellido_paterno" required [ngClass]="{'campo-invalido': !nuevoMedico.apellido_paterno && enviadoAlta}">
     </div>
     <br>
     <div>
         <label for="apellido_materno_alta">Apellido Materno:</label><br>
-        <input type="text" id="apellido_materno_alta" name="apellido_materno_alta" placeholder="Escriba el apellido materno">
+        <input type="text" id="apellido_materno_alta" name="apellido_materno_alta" placeholder="Escriba el apellido materno (opcional)" [(ngModel)]="nuevoMedico.apellido_materno" required [ngClass]="{'campo-invalido': !nuevoMedico.apellido_materno && enviadoAlta}">
     </div>
     <br>
     <div>
         <label for="cedula_alta">Cédula Profesional:</label><br>
-        <input type="text" id="cedula_alta" name="cedula_alta" placeholder="Escriba la cédula profesional" required>
+        <input type="text" id="cedula_alta" name="cedula_alta" placeholder="Escriba la cédula profesional" [(ngModel)]="nuevoMedico.cedula" required [ngClass]="{'campo-invalido': !nuevoMedico.cedula && enviadoAlta}">
     </div>
     <br>
     <div>
-        <button type="button">Dar de Alta</button>
+        <button type="button" (click)="darDeAltaMedico()">Dar de Alta</button>
     </div>
 </form>
 <br>
-<form>
+<form #formModificar="ngForm">
     <h2>Modificar Información del Médico</h2>
 
     <div>
+        <label for="id_medico_mod">ID del Médico a Modificar:</label><br>
+        <input type="number" id="id_medico_mod" name="id_medico_mod" placeholder="Escriba el ID del médico" [(ngModel)]="medicoModificar.id" required [ngClass]="{'campo-invalido': !medicoModificar.id && enviadoModificar}">
+    </div>
+    <br>
+    <div>
         <label for="nombres_mod">Nombre(s):</label><br>
-        <input type="text" id="nombres_mod" name="nombres_mod" placeholder="Juan Carlos" required>
+        <input type="text" id="nombres_mod" name="nombres_mod" placeholder="Juan Carlos" [(ngModel)]="medicoModificar.nombres" required [ngClass]="{'campo-invalido': !medicoModificar.nombres && enviadoModificar}">
     </div>
     <br>
     <div>
         <label for="apellido_paterno_mod">Apellido Paterno:</label><br>
-        <input type="text" id="apellido_paterno_mod" name="apellido_paterno_mod" placeholder="Pérez" required>
+        <input type="text" id="apellido_paterno_mod" name="apellido_paterno_mod" placeholder="Pérez" [(ngModel)]="medicoModificar.apellido_paterno" required [ngClass]="{'campo-invalido': !medicoModificar.apellido_paterno && enviadoModificar}">
     </div>
     <br>
     <div>
         <label for="apellido_materno_mod">Apellido Materno:</label><br>
-        <input type="text" id="apellido_materno_mod" name="apellido_materno_mod" placeholder="López">
+        <input type="text" id="apellido_materno_mod" name="apellido_materno_mod" placeholder="López (opcional)" [(ngModel)]="medicoModificar.apellido_materno" required [ngClass]="{'campo-invalido': !nuevoMedico.apellido_paterno && enviadoModificar}">
     </div>
     <br>
     <div>
         <label for="cedula_mod">Cédula Profesional:</label><br>
-        <input type="text" id="cedula_mod" name="cedula_mod" placeholder="12345678" required>
+        <input type="text" id="cedula_mod" name="cedula_mod" placeholder="12345678" [(ngModel)]="medicoModificar.cedula" required [ngClass]="{'campo-invalido': !medicoModificar.cedula && enviadoModificar}">
     </div>
     <br>
     <div>
-        <button type="button">Guardar Cambios</button>
-        <button type="button" style="margin-left: 10px;">Cancelar</button>
+        <button type="button" (click)="guardarCambios()">Guardar Cambios</button>
+        <button type="button" (click)="cancelarModificacion()" style="margin-left: 10px;">Cancelar</button>
     </div>
 </form>
 
 <hr>
 
-<form>
+<form #formEliminar="ngForm">
     <h2>Eliminar Médico por Cédula Profesional</h2>
     <p class="texto-advertencia">
         Para eliminar un registro, ingresa la cédula profesional del médico.
@@ -67,10 +72,10 @@
 
     <div>
         <label for="cedula_eliminar">Cédula Profesional:</label><br>
-        <input type="text" id="cedula_eliminar" name="cedula_eliminar" placeholder="Escribe la cédula del médico a eliminar" required>
+        <input type="text" id="cedula_eliminar" name="cedula_eliminar" placeholder="Escribe la cédula del médico a eliminar" [(ngModel)]="cedulaParaEliminar" required [ngClass]="{'campo-invalido': !cedulaParaEliminar && enviadoEliminar}">
     </div>
     <br>
     <div>
-        <button type="button" class="btn-eliminar">Eliminar Médico</button>
+        <button type="button" class="btn-eliminar" (click)="eliminarPorCedula()">Eliminar Médico</button>
     </div>
 </form>
